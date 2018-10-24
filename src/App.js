@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FilmRow from './FilmRow';
+import Loading from './Loading';
 import './App.css';
 
 const apiKey = 'f12ba140';
@@ -62,6 +63,10 @@ class App extends Component {
       	<div className="searchresults">
       		{content}
       	</div>
+      	{this.state.loading ? (
+      		<Loading />
+      		) : null
+      	}
       </div>
     );
   }
