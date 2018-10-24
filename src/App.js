@@ -79,7 +79,7 @@ class App extends Component {
 	  ));
     return (
       <div className="App">
-      	<div className="searchform">
+      	<div className="searchform">Search a film:
       		<input className="searchinput" type="text" placeholder="Insert film" onChange={event=>this.updateSearchValue(event)} onKeyPress={event=>this.inputChange(event)} />
       	</div>
       	<div className="searchresults">
