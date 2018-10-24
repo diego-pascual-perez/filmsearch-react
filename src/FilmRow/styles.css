@@ -1,0 +1,43 @@
+.resultsrow {
+	display:block;
+	width: 80%;
+	max-width: 1024px;
+	border-bottom: 1px solid #ddd;
+	text-align: left;
+	margin:auto;
+}
+.noimage {
+	display:inline-block;
+	margin:10px;
+	width:100px;
+	height:100px;
+	vertical-align:top;
+	background:#eee;
+}
+.resultsrow img {
+	display:inline-block;
+	margin:10px;
+	width:100px;
+	height:100px;
+	vertical-align:top;
+}
+.resultsrow-right {
+	display:inline-block;
+	vertical-align:top;
+	margin:10px;
+}
+.resultsrow-title {
+	display:block;
+	font-size:16px;
+	font-weight:bold;
+}
+.resultsrow-year {
+	display:block;
+	font-size:12px;
+	color:#999;
+}
+.resultsrow-imdbID {
+	display:block;
+	font-size:11px;
+	color:#999;
+}

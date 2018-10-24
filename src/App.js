@@ -1,25 +1,67 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import FilmRow from './FilmRow';
 import './App.css';
 
+const apiKey = 'f12ba140';
+
 class App extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			showfilm: false,
+			searchvalue: '',
+			films:[],
+			loading: false,
+		}
+	}
+	
+	inputChange = (event) => {
+		if (event.key === 'Enter') {
+			this.SearchFilm(this.state.searchvalue);
+		}
+	}
+	
+	SearchFilm = (searchtext) => {
+		console.log(searchtext);
+		let urlomdb = `http://www.omdbapi.com/?apikey=${apiKey}&s=${encodeURIComponent(searchtext)}`;
+		console.log(urlomdb);
+
+		this.setState({loading : true});
+		fetch(urlomdb)
+				.then(res => res.json())
+				.then(res => {
+					console.log(res);
+					const films = []; //this.state.films;
+					res.Search.forEach(item => {
+						films.push(item);
+					})
+					this.setState({
+						films:films,
+						loading : false
+					});
+				})
+				.catch(error => {
+					console.error(error);
+					this.setState({loading : false});
+				})
+	}
+	
+	updateSearchValue = (event) => {
+		this.setState({searchvalue:event.target.value});
+	}
+
   render() {
+	  const content = this.state.films.map((item, index) => (
+	  	<FilmRow film={item}  key={index} />
+	  ));
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      	<div className="searchform">
+      		<input className="searchinput" type="text" placeholder="Insert film" onChange={event=>this.updateSearchValue(event)} onKeyPress={event=>this.inputChange(event)} />
+      	</div>
+      	<div className="searchresults">
+      		{content}
+      	</div>
       </div>
     );
   }
