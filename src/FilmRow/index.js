@@ -10,11 +10,11 @@ class FilmRow extends Component {
 
   render() {
     return (
-      <div className="resultsrow">
+      <div className="resultsrow" onClick={()=>this.props.showDetails(this.props.film.imdbID)}>
       	{this.props.film.Poster === 'N/A' ? (
       			<div className="noimage" />
       		):(
-      			<img src={this.props.film.Poster} />
+      			<img src={this.props.film.Poster} alt={this.props.film.Title} />
       		)
       	}
       	<div className="resultsrow-right">

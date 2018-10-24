@@ -5,12 +5,16 @@
 	border-bottom: 1px solid #ddd;
 	text-align: left;
 	margin:auto;
+	cursor:pointer;
+}
+.resultsrow:hover {
+	background:#f0f0f0;
 }
 .noimage {
 	display:inline-block;
 	margin:10px;
 	width:100px;
-	height:100px;
+	height:130px;
 	vertical-align:top;
 	background:#eee;
 }
@@ -18,7 +22,7 @@
 	display:inline-block;
 	margin:10px;
 	width:100px;
-	height:100px;
+	height:130px;
 	vertical-align:top;
 }
 .resultsrow-right {

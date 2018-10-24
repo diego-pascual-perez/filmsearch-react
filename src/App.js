@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FilmRow from './FilmRow';
 import Loading from './Loading';
+import FilmDetails from './FilmDetails';
 import './App.css';
 
 const apiKey = 'f12ba140';
@@ -9,10 +10,10 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			showfilm: false,
 			searchvalue: '',
 			films:[],
 			loading: false,
+			showfilm: null,
 		}
 	}
 	
@@ -47,13 +48,34 @@ class App extends Component {
 				})
 	}
 	
+	showFilmDetails = (filmid) => {
+		console.log(filmid);
+		let urlomdb = `http://www.omdbapi.com/?apikey=${apiKey}&i=${filmid}`;
+		console.log(urlomdb);
+
+		this.setState({loading : true});
+		fetch(urlomdb)
+				.then(res => res.json())
+				.then(res => {
+					console.log(res);
+					this.setState({
+						showfilm:res,
+						loading : false
+					});
+				})
+				.catch(error => {
+					console.error(error);
+					this.setState({loading : false});
+				})
+	}
+		
 	updateSearchValue = (event) => {
 		this.setState({searchvalue:event.target.value});
 	}
 
   render() {
 	  const content = this.state.films.map((item, index) => (
-	  	<FilmRow film={item}  key={index} />
+	  	<FilmRow film={item}  key={index} showDetails={(imdbID)=>this.showFilmDetails(imdbID)} />
 	  ));
     return (
       <div className="App">
@@ -65,6 +87,10 @@ class App extends Component {
       	</div>
       	{this.state.loading ? (
       		<Loading />
+      		) : null
+      	}
+      	{this.state.showfilm !== null ? (
+      		<FilmDetails film={this.state.showfilm} closeDetails={()=>this.setState({showfilm:null})} />
       		) : null
       	}
       </div>
