@@ -34,13 +34,11 @@ class App extends Component {
 	searchFilm = () => {
 		if (this.state.searchvalue.trim() !== '') {
 		let urlomdb = `http://www.omdbapi.com/?apikey=${apiKey}&s=${encodeURIComponent(this.state.searchvalue)}`;
-		console.log(urlomdb);
 
 		this.setState({loading : true});
 		fetch(urlomdb)
 				.then(res => res.json())
 				.then(res => {
-					console.log(res);
 					const films = []; //this.state.films;
 					res.Search.forEach(item => {
 						films.push(item);
@@ -60,15 +58,12 @@ class App extends Component {
 	}
 	
 	showFilmDetails = (filmid) => {
-		console.log(filmid);
 		let urlomdb = `http://www.omdbapi.com/?apikey=${apiKey}&i=${filmid}`;
-		console.log(urlomdb);
 
 		this.setState({loading : true});
 		fetch(urlomdb)
 				.then(res => res.json())
 				.then(res => {
-					console.log(res);
 					this.setState({
 						showfilm:res,
 						loading : false
@@ -89,7 +84,6 @@ class App extends Component {
 		if (user === '') {
 			this.setState({likes:[]});
 		} else {
-			console.log("localstorage: "+user+" - "+localStorage.getItem(user));
 			if (localStorage.getItem(user) !== null) {
 				this.setState({likes:localStorage.getItem(user).split(",")});
 			} else {
@@ -106,7 +100,6 @@ class App extends Component {
 			let filmslikes = this.state.likes;
 			filmslikes.push(filmid);
 			localStorage.setItem(this.state.user,filmslikes);
-			console.log("localstorage2: "+this.state.user+" - "+localStorage.getItem(this.state.user));
 			this.setState({likes:filmslikes});
 		}
 	}
