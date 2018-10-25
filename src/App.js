@@ -124,7 +124,7 @@ class App extends Component {
 
   render() {
 	  const content = this.state.films.map((item, index) => (
-	  	<FilmRow film={item}  key={index} likes={this.state.likes} showDetails={(imdbID)=>this.showFilmDetails(imdbID)} addFavorite={(imdbID) => this.addFavoriteFilm(imdbID)} deleteFavorite={(imdbID) => this.deleteFavoriteFilm(imdbID)}/>
+	  	<FilmRow key={index} film={item} likes={this.state.likes} showDetails={(imdbID)=>this.showFilmDetails(imdbID)} addFavorite={(imdbID) => this.addFavoriteFilm(imdbID)} deleteFavorite={(imdbID) => this.deleteFavoriteFilm(imdbID)}/>
 	  ));
     return (
       <div className="App">

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './styles.css';
 
-const FilmRow = ({ film, key, likes, showDetails, addFavorite, deleteFavorite }) => {
+const FilmRow = ({ film, likes, showDetails, addFavorite, deleteFavorite }) => {
     return (
       <div className="resultsrow">
       	<div className="resultsrow-in" onClick={()=>showDetails(film.imdbID)}>
