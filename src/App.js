@@ -10,13 +10,18 @@ const apiKey = 'f12ba140';
 class App extends Component {
 	constructor(props) {
 		super(props);
+		const user = sessionStorage.getItem('user');
+		let likes = [];
+		if (localStorage.getItem(user) !== null) {
+			likes = localStorage.getItem(user).split(",")
+		}
 		this.state = {
 			searchvalue: '',
 			films:[],
 			loading: false,
 			showfilm: null,
-			user: sessionStorage.getItem('user'),
-			likes:[],
+			user: user,
+			likes: likes,
 		}
 	}
 	
@@ -78,12 +83,45 @@ class App extends Component {
 	
 	Login = (user) => {
 		sessionStorage.setItem('user', user);
+		if (user === '') {
+			this.setState({likes:[]});
+		} else {
+			console.log("localstorage: "+user+" - "+localStorage.getItem(user));
+			if (localStorage.getItem(user) !== null) {
+				this.setState({likes:localStorage.getItem(user).split(",")});
+			} else {
+				this.setState({likes:[]});
+			}
+		}
 		this.setState({user: user});
+	}
+	
+	addFavoriteFilm = (filmid) => {
+		if (this.state.user === '') {
+			alert('Please, log in first');
+		} else {
+			let filmslikes = this.state.likes;
+			filmslikes.push(filmid);
+			localStorage.setItem(this.state.user,filmslikes);
+			console.log("localstorage2: "+this.state.user+" - "+localStorage.getItem(this.state.user));
+			this.setState({likes:filmslikes});
+		}
+	}
+
+	deleteFavoriteFilm = (filmid) => {
+		if (this.state.user === '') {
+			alert('Please, log in first');
+		} else {
+			let filmslikes = this.state.likes;
+			filmslikes = filmslikes.filter(item => item !== filmid)
+			localStorage.setItem(this.state.user,filmslikes);
+			this.setState({likes:filmslikes});
+		}
 	}
 
   render() {
 	  const content = this.state.films.map((item, index) => (
-	  	<FilmRow film={item}  key={index} showDetails={(imdbID)=>this.showFilmDetails(imdbID)} />
+	  	<FilmRow film={item}  key={index} likes={this.state.likes} showDetails={(imdbID)=>this.showFilmDetails(imdbID)} addFavorite={(imdbID) => this.addFavoriteFilm(imdbID)} deleteFavorite={(imdbID) => this.deleteFavoriteFilm(imdbID)}/>
 	  ));
     return (
       <div className="App">

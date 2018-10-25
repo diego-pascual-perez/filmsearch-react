@@ -6,6 +6,7 @@
 	text-align: left;
 	margin:auto;
 	cursor:pointer;
+	position:relative;
 }
 .resultsrow:hover {
 	background:#f0f0f0;
@@ -44,4 +45,35 @@
 	display:block;
 	font-size:11px;
 	color:#999;
+}
+.like {
+	position: absolute;
+	display:inline-block;
+  bottom: 15px;
+  left:130px;
+  padding: 5px 20px;
+  border: 2px solid #ff0040;
+  color: #ff0040;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.like:hover {
+  color: #fff;
+  background: #ff0040;
+}
+.liked {
+	position: absolute;
+	display:inline-block;
+  bottom: 15px;
+  left:130px;
+  padding: 5px 20px;
+  border: 2px solid #ff0040;
+  color: #fff;
+  background: #ff0040;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
 }
