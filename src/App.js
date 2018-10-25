@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import FilmRow from './FilmRow';
 import Loading from './Loading';
 import FilmDetails from './FilmDetails';
+import Login from  './Login';
 import './App.css';
 
 const apiKey = 'f12ba140';
@@ -14,6 +15,8 @@ class App extends Component {
 			films:[],
 			loading: false,
 			showfilm: null,
+			user: sessionStorage.getItem('user'),
+			likes:[],
 		}
 	}
 	
@@ -72,6 +75,11 @@ class App extends Component {
 	updateSearchValue = (event) => {
 		this.setState({searchvalue:event.target.value});
 	}
+	
+	Login = (user) => {
+		sessionStorage.setItem('user', user);
+		this.setState({user: user});
+	}
 
   render() {
 	  const content = this.state.films.map((item, index) => (
@@ -79,6 +87,7 @@ class App extends Component {
 	  ));
     return (
       <div className="App">
+      	<Login user={this.state.user} login={(user) => this.Login(user)} />
       	<div className="searchform">Search a film:
       		<input className="searchinput" type="text" placeholder="Insert film" onChange={event=>this.updateSearchValue(event)} onKeyPress={event=>this.inputChange(event)} />
       	</div>

@@ -1,0 +1,36 @@
+.loginform {
+	display:block;
+	width: 95%;
+	max-width: 1024px;
+	text-align: right;
+	margin:20px auto;
+}
+.logininput {
+	display:inline-block;
+	vertical-align:middle;
+	width: 120px;
+	margin-right:10px;
+	padding:3px 10px;
+	font-size:12px;
+	border-radius:5px;
+}
+.loginbutton {
+	display:inline-block;
+	vertical-align:middle;
+	padding:5px 20px;
+	background: #ff0040;
+	border-radius:50px;
+	color:#fff;
+	cursor:pointer;
+	font-size:12px;
+	font-weight:bold;
+}
+.loginbutton:hover {
+	background: #b1002c;
+}
+.loginhello {
+	display:inline-block;
+	vertical-align:middle;
+	margin-right:10px;
+	font-size:12px;
+}
