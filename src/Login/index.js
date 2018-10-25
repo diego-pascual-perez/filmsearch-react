@@ -15,11 +15,11 @@ class Login extends Component {
 
 	inputLoginChange = (event) => {
 		if (event.key === 'Enter') {
-			this.Login();
+			this.login();
 		}
 	}
 	
-	Login = () => {
+	login = () => {
 		if (this.state.usertext.trim() !== '') {
 			this.props.login(this.state.usertext);
 		} else {
@@ -27,7 +27,7 @@ class Login extends Component {
 		}
 	}
 
-	Logout = () => {
+	logout = () => {
 		this.setState({usertext:''});
 		this.props.login('');
 	}
@@ -38,12 +38,12 @@ class Login extends Component {
      		{this.props.user === '' ? (
      			<div>
 		     		<input className="logininput" type="text" placeholder="Username" onChange={event=>this.updateLoginValue(event)} onKeyPress={event=>this.inputLoginChange(event)} />
-		     		<div className="loginbutton" onClick={() => this.Login()}>Login</div>
+		     		<div className="loginbutton" onClick={() => this.login()}>Login</div>
 		     	</div>
      		) : (
      			<div>
 		     		<div className="loginhello">Hello, {this.props.user}</div>
-		     		<div className="loginbutton" onClick={() => this.Logout()}>Logout</div>
+		     		<div className="loginbutton" onClick={() => this.logout()}>Logout</div>
 		     	</div>
      		)}
      	</div>
