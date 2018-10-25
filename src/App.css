@@ -7,12 +7,34 @@
 	max-width: 1024px;
 	text-align: left;
 	margin:20px auto;
+	height: 34px;
 }
 .searchinput {
+	display:inline-block;
+	vertical-align:middle;
 	width: 50%;
 	max-width:400px;
 	margin-left:20px;
 	padding:6px 12px;
 	font-size:16px;
 	border-radius:5px
+}
+.searchbutton {
+	display:inline-block;
+	vertical-align:middle;
+	padding:5px 20px;
+	background: #ff0040;
+	border-radius:50px;
+	color:#fff;
+	cursor:pointer;
+	font-size:16px;
+	font-weight:bold;
+	margin-left:10px;
+}
+.searchresults {
+	width: 100%;
+	height: calc(100% - 121px);
+	position: absolute;
+	overflow: auto;
+	border-top: 1px solid;
 }

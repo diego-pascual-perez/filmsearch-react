@@ -27,13 +27,13 @@ class App extends Component {
 	
 	inputChange = (event) => {
 		if (event.key === 'Enter') {
-			this.SearchFilm(this.state.searchvalue);
+			this.SearchFilm();
 		}
 	}
 	
-	SearchFilm = (searchtext) => {
-		console.log(searchtext);
-		let urlomdb = `http://www.omdbapi.com/?apikey=${apiKey}&s=${encodeURIComponent(searchtext)}`;
+	SearchFilm = () => {
+		if (this.state.searchvalue.trim() !== '') {
+		let urlomdb = `http://www.omdbapi.com/?apikey=${apiKey}&s=${encodeURIComponent(this.state.searchvalue)}`;
 		console.log(urlomdb);
 
 		this.setState({loading : true});
@@ -54,6 +54,9 @@ class App extends Component {
 					console.error(error);
 					this.setState({loading : false});
 				})
+		} else {
+			alert("Please, introduce a film to search");
+		}
 	}
 	
 	showFilmDetails = (filmid) => {
@@ -128,6 +131,7 @@ class App extends Component {
       	<Login user={this.state.user} login={(user) => this.Login(user)} />
       	<div className="searchform">Search a film:
       		<input className="searchinput" type="text" placeholder="Insert film" onChange={event=>this.updateSearchValue(event)} onKeyPress={event=>this.inputChange(event)} />
+      		<div className="searchbutton" onClick={() => this.SearchFilm()}>Search</div>
       	</div>
       	<div className="searchresults">
       		{content}
