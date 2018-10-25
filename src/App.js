@@ -3,6 +3,7 @@ import FilmRow from './FilmRow';
 import Loading from './Loading';
 import FilmDetails from './FilmDetails';
 import Login from  './Login';
+import api from './Api/api';
 import './App.css';
 
 const apiKey = 'f12ba140';
@@ -33,46 +34,37 @@ class App extends Component {
 	
 	searchFilm = () => {
 		if (this.state.searchvalue.trim() !== '') {
-		let urlomdb = `http://www.omdbapi.com/?apikey=${apiKey}&s=${encodeURIComponent(this.state.searchvalue)}`;
-
-		this.setState({loading : true});
-		fetch(urlomdb)
-				.then(res => res.json())
+			this.setState({loading : true});
+			api.get({s:this.state.searchvalue})
 				.then(res => {
-					const films = []; //this.state.films;
-					res.Search.forEach(item => {
-						films.push(item);
+						const films = []; //this.state.films;
+						res.Search.forEach(item => {
+							films.push(item);
+						})
+						this.setState({films:films,loading : false});
 					})
-					this.setState({
-						films:films,
-						loading : false
+					.catch(error => {
+						alert(error);
+						this.setState({films:[],loading : false});
 					});
-				})
-				.catch(error => {
-					console.error(error);
-					this.setState({loading : false});
-				})
 		} else {
 			alert("Please, introduce a film to search");
 		}
 	}
 	
 	showFilmDetails = (filmid) => {
-		let urlomdb = `http://www.omdbapi.com/?apikey=${apiKey}&i=${filmid}`;
-
 		this.setState({loading : true});
-		fetch(urlomdb)
-				.then(res => res.json())
+		api.get({i:filmid})
 				.then(res => {
-					this.setState({
-						showfilm:res,
-						loading : false
+						this.setState({
+							showfilm:res,
+							loading : false
+						});
+					})
+					.catch(error => {
+						alert(error);
+						this.setState({loading : false});
 					});
-				})
-				.catch(error => {
-					console.error(error);
-					this.setState({loading : false});
-				})
 	}
 		
 	updateSearchValue = (event) => {
