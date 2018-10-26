@@ -107,6 +107,14 @@ class App extends Component {
 		}
 	}
 
+  handleScroll = (scrollHeight, scrollTop, ROWHEIGHT) => {
+    /*if (!this.state.loading && this.state.hasMore) {*/
+      if ((this.state.films.length - 1) * ROWHEIGHT < scrollHeight + scrollTop) {
+	  		console.log("next page");
+      }
+    /*}*/
+  };
+
   render() {
 	  const content = this.state.films.map((item, index) => (
 	  	<FilmRow key={index} film={item} likes={this.state.likes} showDetails={(imdbID)=>this.showFilmDetails(imdbID)} addFavorite={(imdbID) => this.addFavoriteFilm(imdbID)} deleteFavorite={(imdbID) => this.deleteFavoriteFilm(imdbID)}/>
@@ -118,7 +126,7 @@ class App extends Component {
       		<input className="searchinput" type="text" placeholder="Insert film" onChange={event=>this.updateSearchValue(event)} onKeyPress={event=>this.inputChange(event)} />
       		<div className="searchbutton" onClick={() => this.searchFilm()}>Search</div>
       	</div>
-      	<div className="searchresults">
+      	<div className="searchresults" onScroll={e =>this.handleScroll(e.target.clientHeight, e.target.scrollTop, 150)}>
       		{content}
       	</div>
       	{this.state.loading ? (
