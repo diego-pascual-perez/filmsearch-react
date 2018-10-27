@@ -50,7 +50,7 @@ class App extends Component {
 					})
 					.catch(error => {
 						alert(error);
-						this.setState({films:[],loading : false,hasMoreFilms:false});
+						this.setState({films:[],loading : false,hasMoreFilms:false,totalResults:0});
 					});
 		} else {
 			alert("Please, introduce a film to search");
