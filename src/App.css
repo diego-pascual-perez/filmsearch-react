@@ -38,3 +38,10 @@
 	overflow: auto;
 	border-top: 1px solid;
 }
+.searchtotalresults {
+	display:inline-block;
+	vertical-align:middle;	
+	font-size:18px;
+	margin-left:10px;
+	font-weight:bold;
+}

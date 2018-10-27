@@ -23,6 +23,9 @@ class App extends Component {
 			showfilm: null,
 			user: user,
 			likes: likes,
+			hasMoreFilms: true,
+			searchPage: 1,
+			totalResults: -1,
 		}
 	}
 	
@@ -34,18 +37,20 @@ class App extends Component {
 	
 	searchFilm = () => {
 		if (this.state.searchvalue.trim() !== '') {
-			this.setState({loading : true});
+			this.setState({loading : true,searchPage:1,hasMoreFilms:true});
+			this.setState({films:[]});
 			api.get({s:this.state.searchvalue})
 				.then(res => {
-						const films = []; //this.state.films;
+						const films = [];
+						console.log(res);
 						res.Search.forEach(item => {
 							films.push(item);
 						})
-						this.setState({films:films,loading : false});
+						this.setState({films:films,loading : false,searchPage:this.state.searchPage + 1,totalResults:res.totalResults});
 					})
 					.catch(error => {
 						alert(error);
-						this.setState({films:[],loading : false});
+						this.setState({films:[],loading : false,hasMoreFilms:false});
 					});
 		} else {
 			alert("Please, introduce a film to search");
@@ -108,11 +113,28 @@ class App extends Component {
 	}
 
   handleScroll = (scrollHeight, scrollTop, ROWHEIGHT) => {
-    /*if (!this.state.loading && this.state.hasMore) {*/
+    if (!this.state.loading && this.state.hasMoreFilms) {
       if ((this.state.films.length - 1) * ROWHEIGHT < scrollHeight + scrollTop) {
 	  		console.log("next page");
-      }
-    /*}*/
+			  if (this.state.searchvalue.trim() !== '') {
+				this.setState({loading : true});
+				api.get({s:this.state.searchvalue,page:this.state.searchPage})
+					.then(res => {
+							const films = this.state.films;
+							res.Search.forEach(item => {
+								films.push(item);
+							});
+							this.setState({films:films,loading : false,searchPage:this.state.searchPage + 1});
+						})
+						.catch(error => {
+							this.setState({loading : false,hasMoreFilms:false});
+						});
+			} else {
+				alert("Please, introduce a film to search");
+			}
+	
+		}
+    }
   };
 
   render() {
@@ -125,8 +147,12 @@ class App extends Component {
       	<div className="searchform">Search a film:
       		<input className="searchinput" type="text" placeholder="Insert film" onChange={event=>this.updateSearchValue(event)} onKeyPress={event=>this.inputChange(event)} />
       		<div className="searchbutton" onClick={() => this.searchFilm()}>Search</div>
+			{this.state.totalResults >= 0 ? (
+				<div className="searchtotalresults">{this.state.totalResults} films found</div>
+			) : null
+			}
       	</div>
-      	<div className="searchresults" onScroll={e =>this.handleScroll(e.target.clientHeight, e.target.scrollTop, 150)}>
+      	<div className="searchresults" id="searchresults" onScroll={e =>this.handleScroll(e.target.clientHeight, e.target.scrollTop, 150)}>
       		{content}
       	</div>
       	{this.state.loading ? (
