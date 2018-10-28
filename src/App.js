@@ -9,7 +9,7 @@ import './App.css';
 class App extends Component {
 	constructor(props) {
 		super(props);
-		const user = sessionStorage.getItem('user');
+		const user = sessionStorage.getItem('user') || '';
 		let likes = [];
 		if (localStorage.getItem(user) !== null) {
 			likes = localStorage.getItem(user).split(",")
