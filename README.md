@@ -1,4 +1,4 @@
-# Films search (Vanilla JavaScript)
+# Films search (React)
 
 ##development:
 - Clone this repo.
