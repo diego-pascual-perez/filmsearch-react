@@ -6,8 +6,6 @@ import Login from  './Login';
 import api from './Api/api';
 import './App.css';
 
-const apiKey = 'f12ba140';
-
 class App extends Component {
 	constructor(props) {
 		super(props);

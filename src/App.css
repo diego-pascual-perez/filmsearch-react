@@ -7,7 +7,7 @@
 	max-width: 1024px;
 	text-align: left;
 	margin:20px auto;
-	height: 34px;
+	height: 50px;
 }
 .searchinput {
 	display:inline-block;
@@ -33,7 +33,7 @@
 }
 .searchresults {
 	width: 100%;
-	height: calc(100% - 121px);
+	height: calc(100% - 137px);
 	position: absolute;
 	overflow: auto;
 	border-top: 1px solid;
